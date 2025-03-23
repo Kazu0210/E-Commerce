@@ -1,3 +1,13 @@
+<?php
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    if (isset($_POST['register'])) {
+        echo "Register button clicked";
+
+        
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
