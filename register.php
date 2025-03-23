@@ -1,4 +1,6 @@
 <?php
+include 'db.php'; // import database connection file
+
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['register'])) {
         $fullName = $_POST['fullName'];
@@ -11,6 +13,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $postalCode = $_POST['postalCode'];
         $country = $_POST['country'];
         $role = $_POST['userRole'];
+
+        if (!empty($fullName) && !empty($email) && !empty($username) && !empty($password) && !empty($phoneNum) && !empty($address) && !empty($city) && !empty($postalCode) && !empty($country) && !empty($role)) {
+            $conn->query("INSERT INTO user_tbl (full_name, email) VALUES ('$fullName', '$email')"); // insert data to database
+        } else {
+            echo "Please fill in all fields.";
+        }
     }
 }
 ?>
