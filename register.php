@@ -47,12 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         <button type="submit" name="register">Register</button>
     </form>
     <a href="login.php">Already have an account? Login here.</a>
-
-    <script>
-        document.getElementById('fullNameInput').addEventListener("keypress", function (event) {
-            let key
-        });
-    </script>
 </body>
 </html>
 
