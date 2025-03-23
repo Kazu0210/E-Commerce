@@ -1,9 +1,16 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['register'])) {
-        echo "Register button clicked";
-
-        
+        $fullName = $_POST['fullName'];
+        $email = $_POST['email'];
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $phoneNum = $_POST['phoneNum'];
+        $address = $_POST['address'];
+        $city = $_POST['city'];
+        $postalCode = $_POST['postalCode'];
+        $country = $_POST['country'];
+        $role = $_POST['userRole'];
     }
 }
 ?>
