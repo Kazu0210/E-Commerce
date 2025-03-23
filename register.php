@@ -46,5 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         <button type="submit" name="register">Register</button>
     </form>
+    <a href="login.php">Already have an account? Login here.</a>
 </body>
 </html>
