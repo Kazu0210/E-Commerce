@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <form action="" method="post">
         <input type="text" name="fullName" id="fullNameInput" placeholder="Full Name" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '')">
         <input type="email" name="email" id="email" placeholder='example@email.com'>
-        <input type="text" name="username" id="username" placeholder="Username">
+        <input type="text" name="username" id="username" placeholder="Username" maxlength='30'>
         <input type="password" name="password" id="password" placeholder="Password"> 
         <input type="number" name='phoneNum' id='phoneNum' placeholder='Phone Number'>
         <input type="text" name='address' id='address' placeholder='Address' maxlength='100'>
