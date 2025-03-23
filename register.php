@@ -7,15 +7,16 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $email = $_POST['email'];
         $username = $_POST['username'];
         $password = $_POST['password'];
+        $hash_password = password_hash($password, PASSWORD_DEFAULT);
         $phoneNum = $_POST['phoneNum'];
         $address = $_POST['address'];
         $city = $_POST['city'];
         $postalCode = $_POST['postalCode'];
         $country = $_POST['country'];
-        $role = $_POST['userRole'];
+        $role = 'customer';
 
-        if (!empty($fullName) && !empty($email) && !empty($username) && !empty($password) && !empty($phoneNum) && !empty($address) && !empty($city) && !empty($postalCode) && !empty($country) && !empty($role)) {
-            $conn->query("INSERT INTO user_tbl (full_name, email) VALUES ('$fullName', '$email')"); // insert data to database
+        if (!empty($fullName) && !empty($email) && !empty($username) && !empty($password) && !empty($phoneNum) && !empty($address) && !empty($city) && !empty($postalCode) && !empty($country)) {
+            $conn->query("INSERT INTO user_tbl (full_name, email, username, password, phone_num, address, city, postal_code, country, user_role) VALUES ('$fullName', '$email', '$username', '$hash_password', '$phoneNum', '$address', '$city', '$postalCode', '$country', '$role')"); // insert data to database
         } else {
             echo "Please fill in all fields.";
         }
