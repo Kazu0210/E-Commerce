@@ -21,6 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             echo "Please fill in all fields.";
         }
     }
+    elseif (isset($_POST['backtohome'])) {
+        header("Location: index.php");
+    }
 }
 ?>
 
@@ -46,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         <input type="hidden" name='userRole' id='userRole' placeholder='User Role'>
 
         <button type="submit" name="register">Register</button>
+        <button type="submit" name="backtohome">Back to home</button>
     </form>
     <a href="login.php">Already have an account? Login here.</a>
 </body>
