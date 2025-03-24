@@ -41,6 +41,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             echo "❌ Please enter both username and password.";
         }
     }
+    elseif (isset($_POST['backtohome'])) {
+        header("Location: index.php");
+    }
 }
 ?>
 
@@ -59,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         <input type="password" name="password" id="password" placeholder="Password">
 
         <button type="submit" name="login">Login</button>
+        <button type="submit" name="backtohome">Back to home</button>
     </form>
 </body>
 </html>
