@@ -1,20 +1,20 @@
 <?php
 session_start();
 
-// if ($_SERVER['REQUEST_METHOD'] == "POST") {
-//     if (isset($_POST['login'])) {
-//         header("Location: login.php");
-//         exit();
-//     } elseif (isset($_POST['register'])) {
-//         header("Location: register.php");
-//         exit();
-//     } elseif (isset($_POST['logout'])) {
-//         session_unset();
-//         session_destroy();
-//         header("Location: index.php"); // Redirect to homepage after logout
-//         exit();
-//     }
-// }
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    if (isset($_POST['login'])) {
+        header("Location: login.php");
+        exit();
+    } elseif (isset($_POST['register'])) {
+        header("Location: register.php");
+        exit();
+    } elseif (isset($_POST['logout'])) {
+        session_unset();
+        session_destroy();
+        header("Location: index.php"); // Redirect to homepage after logout
+        exit();
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -37,19 +37,30 @@ session_start();
             </form>
         </div>
         <div id="buttons">
-            <button name="cartBtn" id="cartBtn">
-                <img src="assets/images/cart-white.png" alt="cart-icon" id="cartIcon">
-            </button>
+            
+            <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+                <?php if (isset($_SESSION['username'])): ?>
+                    <button name="cartBtn" id="cartBtn">
+                        <img src="assets/images/cart-white.png" alt="cart-icon" id="cartIcon">
+                    </button>
+        
+                    <button name="userBtn" id="userBtn">
+                        <img src="assets/images/user-white.png" alt="user-icon" id="userIcon">
+                    </button>
+                    <button type="submit" name="logout">Logout</button>
+                <?php else: ?>
+                    <button type="submit" name="login" id="loginBtn">Login</button>
+                    <button type="submit" name="register" id="registerBtn">Register</button>
+                <?php endif; ?>
+            </form>
 
-            <button name="userBtn" id="userBtn">
-                <img src="assets/images/user-white.png" alt="user-icon" id="userIcon">
-            </button>
         </div>
     </nav>
     
     <div id="categories">
         <nav>
             <ul>
+                <li id="homeLink"><a href="#">Home</a></li>
                 <li><a href="#">Smartphones & Accessories</a></li>
                 <li><a href="#">Laptops & Accessories</a></li>
                 <li><a href="#">Audio & Wearables</a></li>
@@ -59,16 +70,9 @@ session_start();
         </nav>
     </div>
 
+    <!-- <h1 style='color: white;'>Welcome, <?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : "Guest"; ?>!</h1> -->
 
-    <h1>Welcome, <?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : "Guest"; ?>!</h1>
 
-    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
-        <?php if (isset($_SESSION['username'])): ?>
-            <button type="submit" name="logout">Logout</button>
-        <?php else: ?>
-            <button type="submit" name="login">Login</button>
-            <button type="submit" name="register">Register</button>
-        <?php endif; ?>
-    </form>
+    <script src="assets/js/index.js"></script>
 </body>
 </html>

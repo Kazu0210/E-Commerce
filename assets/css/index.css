@@ -108,31 +108,44 @@ html, body {
     height: 100%;
 }
 
+/* CATEGORY LINKS */
 #categories {
     background-color: #22242C;
     /* background-color: red; */
-    height: 35px;
+    height: 50px;
     display: flex;
     justify-content: space-between;
     flex-direction: row;
     padding: 0px 40px;
-}
-
-/* CATEGORY LINKS */
-#categories {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 ul {
     list-style-type: none;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 30px;
 }
 li a {
     text-decoration: none;
     color: #fff;
     font-size: 14px;
+}
+
+#homeLink {
+    position: absolute;
+    left: 35px;
+}
+
+#loginBtn, #registerBtn {
+    background-color: #1B9CFB;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
 }

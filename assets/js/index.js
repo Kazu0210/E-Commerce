@@ -1,2 +1,4 @@
 let userBtn = document.getElementById('userBtn');
-console.log('User button clicked');
+userBtn.addEventListener('click', function() {
+    console.log('User button clicked');
+})
