@@ -27,7 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 </head>
 <body>
     <nav id="navbar">
-        <div id="logo">&lt;Tech & Gadgets/&gt;</div>
+        <!-- <div id="logo">&lt;Tech & Gadgets/&gt;</div> -->
+        <div id="logo-cont">
+            <img src="assets/images/tech-gadgets-logo.png" alt="" id="logo-img">
+        </div>
         <div id="searchBar">
             <form action="" method="post">
                 <input type="text" name="searchInput" id="searchInput" placeholder="Search here">
@@ -47,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                     <button name="userBtn" id="userBtn">
                         <img src="assets/images/user-white.png" alt="user-icon" id="userIcon">
                     </button>
-                    <button type="submit" name="logout">Logout</button>
+                    <button type="submit" name="logout" id="logoutBtn">Logout</button>
                 <?php else: ?>
                     <button type="submit" name="login" id="loginBtn">Login</button>
                     <button type="submit" name="register" id="registerBtn">Register</button>

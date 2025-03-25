@@ -22,7 +22,7 @@ html, body {
     flex-direction: row;
     padding: 0px 40px;
 }
-#logo {
+#logo-cont {
     width: fit-content;
     height: 100%;
     font-size: 30px;
@@ -31,6 +31,10 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+#logo-img {
+    width: 20em;
+    height: auto;
 }
 #searchBar {
     background-color: #22242C;
@@ -146,6 +150,15 @@ li a {
 
 #loginBtn, #registerBtn {
     background-color: #1B9CFB;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+}
+#logoutBtn {
+    background-color: rgb(169, 0, 0);
     border: none;
     padding: 5px 10px;
     border-radius: 5px;
