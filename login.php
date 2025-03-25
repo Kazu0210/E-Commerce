@@ -57,13 +57,30 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <title>E-Commerce | Login</title>
 </head>
 <body>
-    <h1>Login</h1>
-    <form action="" method="post">
-        <input type="text" name="username" id="username" placeholder="Username" maxlength='30'>
-        <input type="password" name="password" id="password" placeholder="Password">
+    <div id="main-cont">
+        <div id="loginForm">
+            <form action="" method="post">
+                <div id="username-cont">
+                    <p id="username-text">Username</p>
+                    <input type="text" name="username" id="username" maxlength='30'>
+                </div>
 
-        <button type="submit" name="login">Login</button>
-        <button type="submit" name="backtohome">Back to home</button>
-    </form>
+                <div id="password-cont">
+                    <p id="password-text">Password</p>
+                    <input type="password" name="password" id="password">
+                </div>
+        
+                <div id="forgotPass-cont">
+                    <button type="submit" name="login" id="loginBtn">LOGIN</button>
+                    <a href="">Forgot password</a>
+                </div>
+
+                <a href="" id="registerLink">Don't have an account? Click here.</a>
+
+                <p style="text-align: center; color: #767678">or</p>
+                <button type="submit" name="backtohome" id="backtohomeBtn">Back to home</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
