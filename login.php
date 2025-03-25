@@ -1,50 +1,50 @@
 <?php
 include "db.php"; // Ensure this file correctly connects to the database
 
-if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    if (isset($_POST['login'])) {
-        // Get data from the form
-        $username = trim($_POST['username']);
-        $fetchedPassword = $_POST['password'];
+// if ($_SERVER['REQUEST_METHOD'] == "POST") {
+//     if (isset($_POST['login'])) {
+//         // Get data from the form
+//         $username = trim($_POST['username']);
+//         $fetchedPassword = $_POST['password'];
 
-        if (!empty($username) && !empty($fetchedPassword)) {
-            // Use a prepared statement to prevent SQL injection
-            $sql = "SELECT user_id, username, password FROM user_tbl WHERE username = ?";
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("s", $username);
-            $stmt->execute();
-            $result = $stmt->get_result();
+//         if (!empty($username) && !empty($fetchedPassword)) {
+//             // Use a prepared statement to prevent SQL injection
+//             $sql = "SELECT user_id, username, password FROM user_tbl WHERE username = ?";
+//             $stmt = $conn->prepare($sql);
+//             $stmt->bind_param("s", $username);
+//             $stmt->execute();
+//             $result = $stmt->get_result();
 
-            if ($result->num_rows > 0) {
-                $row = $result->fetch_assoc();
-                $storedPassword = $row['password']; // This should be a hashed password from the database
+//             if ($result->num_rows > 0) {
+//                 $row = $result->fetch_assoc();
+//                 $storedPassword = $row['password']; // This should be a hashed password from the database
 
-                // Verify password (assuming it's hashed using password_hash())
-                if (password_verify($fetchedPassword, $storedPassword)) {
-                    // Start session
-                    session_start();
-                    $_SESSION['user_id'] = $row['user_id'];
-                    $_SESSION['username'] = $row['username'];
+//                 // Verify password (assuming it's hashed using password_hash())
+//                 if (password_verify($fetchedPassword, $storedPassword)) {
+//                     // Start session
+//                     session_start();
+//                     $_SESSION['user_id'] = $row['user_id'];
+//                     $_SESSION['username'] = $row['username'];
 
-                    // Redirect to dashboard
-                    header("Location: index.php");
-                    exit;
-                } else {
-                    echo "❌ Invalid username or password.";
-                }
-            } else {
-                echo "❌ No user found with that username.";
-            }
+//                     // Redirect to dashboard
+//                     header("Location: index.php");
+//                     exit;
+//                 } else {
+//                     echo "❌ Invalid username or password.";
+//                 }
+//             } else {
+//                 echo "❌ No user found with that username.";
+//             }
 
-            $stmt->close();
-        } else {
-            echo "❌ Please enter both username and password.";
-        }
-    }
-    elseif (isset($_POST['backtohome'])) {
-        header("Location: index.php");
-    }
-}
+//             $stmt->close();
+//         } else {
+//             echo "❌ Please enter both username and password.";
+//         }
+//     }
+//     elseif (isset($_POST['backtohome'])) {
+//         header("Location: index.php");
+//     }
+// }
 ?>
 
 
