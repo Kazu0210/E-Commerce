@@ -9,10 +9,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         header("Location: register.php");
         exit();
     } elseif (isset($_POST['logout'])) {
-        session_unset();
-        session_destroy();
-        header("Location: index.php"); // Redirect to homepage after logout
-        exit();
+        echo "<script>
+            var confirmLogout = confirm('Are you sure you want to log out?');
+            if (confirmLogout) {
+                window.location.href = 'logout.php';
+            }
+        </script>";
     }
 }
 ?>
@@ -74,8 +76,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     </div>
 
     <!-- <h1 style='color: white;'>Welcome, <?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : "Guest"; ?>!</h1> -->
-
-
 
 </body>
 </html>
