@@ -134,10 +134,15 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             opacity: 1;
             transition: opacity 1.5s ease-out;
         }
-        .notif.success { background-color: #28a745; color: white; }
-        .notif.error { 
-            background-color: #dc3545;
+        .notif.success { 
+            background-color: #22242C; 
             color: white;
+            border: 1px solid #28a745; 
+        }
+        .notif.error { 
+            background-color: #22242C;
+            color: white;
+            border: 1px solid red;
         }
         .notif.hide { opacity: 0; }
     </style>
