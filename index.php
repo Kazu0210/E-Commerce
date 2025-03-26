@@ -1,20 +1,20 @@
 <?php
 session_start();
 
-// if ($_SERVER['REQUEST_METHOD'] == "POST") {
-//     if (isset($_POST['login'])) {
-//         header("Location: login.php");
-//         exit();
-//     } elseif (isset($_POST['register'])) {
-//         header("Location: register.php");
-//         exit();
-//     } elseif (isset($_POST['logout'])) {
-//         session_unset();
-//         session_destroy();
-//         header("Location: index.php"); // Redirect to homepage after logout
-//         exit();
-//     }
-// }
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    if (isset($_POST['login'])) {
+        header("Location: login.php");
+        exit();
+    } elseif (isset($_POST['register'])) {
+        header("Location: register.php");
+        exit();
+    } elseif (isset($_POST['logout'])) {
+        session_unset();
+        session_destroy();
+        header("Location: index.php"); // Redirect to homepage after logout
+        exit();
+    }
+}
 ?>
 
 <!DOCTYPE html>
