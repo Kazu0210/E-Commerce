@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 16px;
+            font-family: 'Lucida Sans', sans-serif;
+        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        .notif-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 220px;
+            z-index: 1000;
+        }
+        .notif {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 2px 2px rgba(0, 0, 0, 0.2);
+            background-color: #f0f0f0;
+            opacity: 1;
+            transition: opacity 1.5s ease-out;
+        }
+        .notif h1 {
+            text-align: center;
+            font-size: 16px;
+        }
+        .notif.hide {
+            opacity: 0;
+        }
+    </style>
+    <title>Notification</title>
+</head>
+<body>
+
+    <button onclick="showNotification('Test Notif')">Show Notification</button>
+    <div class="notif-container" id="notif-container"></div>
+
+    <script>
+        function showNotification(message) {
+            const container = document.getElementById("notif-container");
+
+            // Create the notification element
+            const notif = document.createElement("div");
+            notif.classList.add("notif");
+            notif.innerHTML = `<h1>${message}</h1>`;
+
+            // Append to container
+            container.appendChild(notif);
+
+            // Hide after 3 seconds with a slow fade-out
+            setTimeout(() => {
+                notif.classList.add("hide");
+                setTimeout(() => notif.remove(), 1500); // Remove after fade-out
+            }, 1000);
+        }
+    </script>
+
+</body>
+</html>

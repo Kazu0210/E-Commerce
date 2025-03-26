@@ -1,5 +1,9 @@
 <?php
+session_start(); // Start session at the beginning
 include "db.php"; // Ensure this file correctly connects to the database
+
+$notifMessage = "";
+$notifType = "";
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['login'])) {
@@ -21,32 +25,36 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
                 // Verify password (assuming it's hashed using password_hash())
                 if (password_verify($fetchedPassword, $storedPassword)) {
-                    // Start session
-                    session_start();
                     $_SESSION['user_id'] = $row['user_id'];
                     $_SESSION['username'] = $row['username'];
 
-                    // Redirect to dashboard
-                    header("Location: index.php");
-                    exit;
+                    // Success Notification
+                    $notifMessage = "✅ Login successful! Redirecting...";
+                    $notifType = "success";
+
+                    echo "<script>
+                        setTimeout(() => { window.location.href = 'index.php'; }, 2000);
+                    </script>";
                 } else {
-                    echo "❌ Invalid username or password.";
+                    $notifMessage = "❌ Invalid username or password.";
+                    $notifType = "error";
                 }
             } else {
-                echo "❌ No user found with that username.";
+                $notifMessage = "❌ No user found with that username.";
+                $notifType = "error";
             }
-
             $stmt->close();
         } else {
-            echo "❌ Please enter both username and password.";
+            $notifMessage = "❌ Please enter both username and password.";
+            $notifType = "error";
         }
     }
     elseif (isset($_POST['backtohome'])) {
         header("Location: index.php");
+        exit;
     }
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -57,6 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <title>E-Commerce | Login</title>
 </head>
 <body>
+    <div class="notif-container" id="notif-container"></div>
+    
     <div id="main-cont">
         <div id="loginForm">
             <form action="" method="post">
@@ -82,5 +92,54 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             </form>
         </div>
     </div>
+
+    <script>
+        function showNotification(message, type = "success") {
+            const container = document.getElementById("notif-container");
+
+            // Create notification
+            const notif = document.createElement("div");
+            notif.classList.add("notif", type);
+            notif.innerHTML = `<strong>${message}</strong>`;
+
+            container.appendChild(notif);
+
+            // Hide after 3 seconds with fade effect
+            setTimeout(() => {
+                notif.classList.add("hide");
+                setTimeout(() => notif.remove(), 1500);
+            }, 800);
+        }
+
+        // Show notification from PHP if set
+        <?php if (!empty($notifMessage)): ?>
+            showNotification("<?php echo $notifMessage; ?>", "<?php echo $notifType; ?>");
+        <?php endif; ?>
+    </script>
+
+    <style>
+        .notif-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 250px;
+            z-index: 1000;
+        }
+        .notif {
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            background-color: #f0f0f0;
+            opacity: 1;
+            transition: opacity 1.5s ease-out;
+        }
+        .notif.success { background-color: #28a745; color: white; }
+        .notif.error { 
+            background-color: #dc3545;
+            color: white;
+        }
+        .notif.hide { opacity: 0; }
+    </style>
 </body>
 </html>

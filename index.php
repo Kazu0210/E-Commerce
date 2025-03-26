@@ -76,6 +76,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <!-- <h1 style='color: white;'>Welcome, <?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : "Guest"; ?>!</h1> -->
 
 
-    <script src="assets/js/index.js"></script>
+
 </body>
 </html>
