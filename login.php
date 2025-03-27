@@ -2,6 +2,10 @@
 session_start(); // Start session at the beginning
 include "db.php"; // Ensure this file correctly connects to the database
 
+if (isset($_SESSION['user_id']) && isset($_SESSION['username'])) { // check if there's a saved user_id for logged in or out
+    header("Location: index.php");
+}
+
 $notifMessage = "";
 $notifType = "";
 
@@ -82,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         
                 <div id="forgotPass-cont">
                     <button type="submit" name="login" id="loginBtn">LOGIN</button>
-                    <a href="">Forgot password</a>
+                    <a href="forgot-password.php">Forgot password</a>
                 </div>
 
                 <a href="register.php" id="registerLink">Don't have an account? Click here.</a>
