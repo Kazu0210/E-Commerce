@@ -1,18 +1,13 @@
 <?php
-session_start(); // Start session
+session_start();
+include "db.php";
 
 // Clear session if user navigates back
-if (isset($_SESSION['back_pressed'])) {
-    unset($_SESSION['email']);
-    unset($_SESSION['otp']);
-    unset($_SESSION['otp_generated']);
-    unset($_SESSION['back_pressed']);
+if (!isset($_SESSION['back_pressed'])) {
+    unset($_SESSION['email'], $_SESSION['otp'], $_SESSION['otp_generated'], $_SESSION['otp_confirmed']);
 }
+$_SESSION['back_pressed'] = true; // Ensure it gets set
 
-// Check if the user navigates back in the browser
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $_SESSION['back_pressed'] = true;
-}
 function validatePassword($password) {
     if (strlen($password) < 8 || strlen($password) > 64) {
         return "Password must be between 8 and 64 characters.";
@@ -29,70 +24,62 @@ function validatePassword($password) {
     if (!preg_match('/[\W_]/', $password)) {
         return "Password must include at least one special character.";
     }
-    return "Valid";
+    return true;
 }
 
-// // Example Usage
-// $password = "SecureP@ss1";
-// echo validatePassword($password); // Output: "Valid"
-
-// If the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     if (isset($_POST['submitEmail'])) {
         if (isset($_SESSION['email'])) {
-            return; // Prevent re-generation
+            echo "OTP has already been sent to your email.";
         } else {
             $_SESSION['email'] = $_POST['email'];
-            
-            // Prevent OTP regeneration on refresh
+
             if (!isset($_SESSION['otp_generated'])) {
-                // Generate OTP
-                $otp = '';
-                for ($i = 0; $i < 6; $i++) {
-                    $randomNum = random_int(0, 9);
-                    $otp .= $randomNum;
-                }
-                $_SESSION['otp'] = $otp;
-                $_SESSION['otp_generated'] = true; // Mark OTP as generated
+                $_SESSION['otp'] = strval(random_int(100000, 999999)); // Generate OTP
+                $_SESSION['otp_generated'] = true;
                 $_SESSION['otp_confirmed'] = false;
-    
-                echo "OTP: " . $otp;
+
+                echo "OTP: " . $_SESSION['otp'];
             }
         }
-    }
-    elseif (isset($_POST['submitOTP'])) {
-        $submmited_otp = $_POST['otp'];
-        if ($submmited_otp == $_SESSION['otp']) {
+    } elseif (isset($_POST['submitOTP'])) {
+        if ($_POST['otp'] == $_SESSION['otp']) {
+            $_SESSION['otp_confirmed'] = true;
             echo "OTP confirmed";
-            $_SESSION['otp_confirm'] = true;
+        } else {
+            echo "Invalid OTP. Please try again.";
         }
-    }
-    elseif (isset($_POST['submitPassword'])) {
-        $password = $_POST['password'];
+    } elseif (isset($_POST['submitPassword'])) {
+        $password = $_POST['newpassword'];
         $confirm_password = $_POST['confirmPass'];
 
-        if ($password == $confirm_password) {
-            // Passwords match, proceed with registration
+        if ($password !== $confirm_password) {
+            echo "Passwords do not match.";
+        } else {
+            $validationResult = validatePassword($password);
+            if ($validationResult !== true) {
+                echo $validationResult; // Show validation error message
+            } else {
+                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                $email = $_SESSION['email'];
 
-            // ❌ ADD PASSWORD VALIDATIONS
-            // minimum lenght
-            // max lenght
-            // one uppercase latter
-            // one lowercase letter
-            // one number
-            // one special character
-            // no username or email in password
-            // no repeating sequential characters
-            // encrypt before storing
+                $sql = "UPDATE user_tbl SET password = ? WHERE email = ?";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("ss", $hashed_password, $email);
 
-        }
-        else {
-            echo "Passwords do not match";
+                if ($stmt->execute()) {
+                    session_destroy(); // Clear session after successful update
+                    header('Location: login.php');
+                    exit();
+                } else {
+                    echo "Error updating password: " . $conn->error;
+                }
+                $stmt->close();
+            }
         }
     }
 }
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -102,40 +89,43 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <title>E-Commerce | Forgot Password</title>
 </head>
 <body>
-    <?php
-        if (!isset($_SESSION['email'])) {
-            ?>
-            <form action="" method="post">
-                <h1>Forgot Password</h1>
-                <input type="email" name="email" id="email" placeholder="Enter Email" required>
-                <button type="submit" name="submitEmail">Confirm</button>
-            </form>
-            <?php
-        } elseif (isset($_SESSION['otp']) && isset($_SESSION['otp_confirmed']) && $_SESSION['otp_confirmed'] == false) {
-            ?>
-            <form action="" method="post">
-                <h1>Email Verification</h1>
-                <input type="text" name="otp" id="otp" placeholder="One-time Password" required>
-                <button type="submit" name="submitOTP">Confirm</button>
-            </form>
-            <?php
-        } elseif (!isset($_SESSION['newpassword'])) {
-            ?>
-            <form action="" method="post">
-                <h1>Enter Password</h1>
-                <input type="password" name="newpassword" id="newpassword" placeholder="Password" minlength="8" maxlength="64">
-                <input type="password" name="confirmPass" id="confirmPass" placeholder="Confirm Password" minlength="8" maxlength="64">
-                <button type="submit" name="submitPassword">Confirm</button>
-            </form>
-            <?php
-        }
-    ?>
+    <?php if (!isset($_SESSION['email'])) { ?>
+        <form action="" method="post">
+            <h1>Forgot Password</h1>
+            <input type="email" name="email" placeholder="Enter Email" required>
+            <button type="submit" name="submitEmail">Confirm</button>
+        </form>
+    <?php } elseif (!isset($_SESSION['otp_confirmed']) || $_SESSION['otp_confirmed'] == false) { ?>
+        <form action="" method="post">
+            <h1>Email Verification</h1>
+            <input type="text" name="otp" placeholder="One-time Password" required>
+            <button type="submit" name="submitOTP">Confirm</button>
+        </form>
+    <?php } else { ?>
+        <form action="" method="post">
+            <h1>Enter Password</h1>
+            <input type="password" name="newpassword" placeholder="Password" minlength="8" maxlength="64" required>
+            <input type="password" name="confirmPass" placeholder="Confirm Password" minlength="8" maxlength="64" required>
+            <input type="checkbox" id="showpassword">
+            <label for="showpassword">Show Password</label>
+            <button type="submit" name="submitPassword">Confirm</button>
+        </form>
+    <?php } ?>
+
     <script>
     window.addEventListener("pageshow", function(event) {
-        if (event.persisted) { // This detects if the page was loaded from the bfcache (back-forward cache)
-            fetch("clear_session.php", { method: "GET" }) // Send a request to clear session
+        if (event.persisted) {
+            fetch("clear_session.php", { method: "GET" }) 
             .then(response => console.log("Session cleared"));
         }
+    });
+
+    document.getElementById('showpassword').addEventListener('click', function() {
+        let passwordInput = document.querySelector('[name="newpassword"]');
+        let confirmPass = document.querySelector('[name="confirmPass"]');
+        let type = this.checked ? "text" : "password";
+        passwordInput.type = type;
+        confirmPass.type = type;
     });
     </script>
 </body>
