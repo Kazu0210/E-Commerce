@@ -74,6 +74,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <div id="main-cont">
         <div id="loginForm">
             <form action="" method="post">
+                <div id="title-cont">
+                    <p id="title">LOGIN</p>
+                </div>
                 <div id="username-cont">
                     <p id="username-text">Username</p>
                     <input type="text" name="username" id="username" maxlength='30'>

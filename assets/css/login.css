@@ -122,6 +122,13 @@ html, body {
     opacity: 1;
     transition: opacity 1.5s ease-out;
 }
+
+#title {
+    color: #fff;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+}
 .notif.success { background-color: #28a745; color: white; }
 .notif.error { background-color: #dc3545; color: white; }
 .notif.hide { opacity: 0; }
