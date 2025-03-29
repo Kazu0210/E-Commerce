@@ -32,26 +32,69 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/register.css">
     <title>E-Commerce | Register</title>
 </head>
 <body>
-    <h1>Register</h1>
-    <form action="" method="post">
-        <input type="text" name="fullName" id="fullNameInput" placeholder="Full Name" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '')">
-        <input type="email" name="email" id="email" placeholder='example@email.com'>
-        <input type="text" name="username" id="username" placeholder="Username" maxlength='30'>
-        <input type="password" name="password" id="password" placeholder="Password"> 
-        <input type="number" name='phoneNum' id='phoneNum' placeholder='Phone Number'>
-        <input type="text" name='address' id='address' placeholder='Address' maxlength='100'>
-        <input type="text" name='city' id='city' placeholder='City' maxlength='50'>
-        <input type="number" name='postalCode' id='postalCode' placeholder='Postal Code' maxlength='10'>
-        <input type="text" name='country' id='country' placeholder='Country' maxlength='60' oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '')">
-        <input type="hidden" name='userRole' id='userRole' placeholder='User Role'>
+    <div id="main-cont">    
+        <div id="form-cont">
+            <form action="" method="post">
+                <div class="title-cont">
+                    <p class="title">REGISTER</p>
+                </div>
+                <div class="input-cont">
+                    <p class="label">Full name</p>
+                    <input type="text" name="fullName" id="fullNameInput" placeholder="Full Name" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '')">
+                </div>
+                
+                <div class="group-cont">
+                    <div class="input-cont">
+                        <p class="label">Email</p>
+                        <input type="email" name="email" id="email" placeholder='example@email.com'>
+                    </div>
+                    <div class="input-cont">
+                        <p class="label">Username</p>
+                        <input type="text" name="username" id="username" placeholder="Username" maxlength='30'>
+                    </div>
+                </div>
+                <div class="input-cont">
+                    <p class="label">Password</p>
+                    <input type="password" name="password" id="password" placeholder="Password"> 
+                </div>
 
-        <button type="submit" name="register">Register</button>
-        <button type="submit" name="backtohome">Back to home</button>
-    </form>
-    <a href="login.php">Already have an account? Login here.</a>
+                <div class="group-cont">
+                    <div class="input-cont">
+                        <p class="label">Phone number</p>
+                        <input type="number" name='phoneNum' id='phoneNum' placeholder='Phone Number'>
+                    </div>
+                    <div class="input-cont">
+                        <p class="label">Address</p>
+                        <input type="text" name='address' id='address' placeholder='Address' maxlength='100'>
+                    </div>
+                </div>
+                <div class="group-cont">
+                    <div class="input-cont">
+                        <p class="label">City</p>
+                        <input type="text" name='city' id='city' placeholder='City' maxlength='50'>
+                    </div>
+                    <div class="input-cont">
+                        <p class="label">Postal Code</p>
+                        <input type="number" name='postalCode' id='postalCode' placeholder='Postal Code' maxlength='10'>
+                    </div>
+                </div>
+                <div class="input-cont">
+                    <p class="label">Country</p>
+                    <input type="text" name='country' id='country' maxlength='60' oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '')">
+                </div>  
+                <input type="hidden" name='userRole' id='userRole' placeholder='User Role'>
+        
+                <button type="submit" name="register">REGISTER</button>
+                <a href="login.php" id="loginLink">Already have an account? Login here.</a>
+                <p style="text-align: center; color: #767678">or</p>
+                <button type="submit" name="backtohome">Back to home</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
 
