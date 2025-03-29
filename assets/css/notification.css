@@ -1,0 +1,27 @@
+.notif-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 250px;
+    z-index: 1000;
+}
+.notif {
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    background-color: #f0f0f0;
+    opacity: 1;
+    transition: opacity 1.5s ease-out;
+}
+.notif.success { 
+    background-color: #22242C; 
+    color: white;
+    border: 1px solid #28a745; 
+}
+.notif.error { 
+    background-color: #22242C;
+    color: white;
+    border: 1px solid red;
+}
+.notif.hide { opacity: 0; }

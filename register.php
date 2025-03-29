@@ -17,7 +17,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
         if (!empty($fullName) && !empty($email) && !empty($username) && !empty($password) && !empty($phoneNum) && !empty($address) && !empty($city) && !empty($postalCode) && !empty($country)) {
             $conn->query("INSERT INTO user_tbl (full_name, email, username, password, phone_num, address, city, postal_code, country, user_role) VALUES ('$fullName', '$email', '$username', '$hash_password', '$phoneNum', '$address', '$city', '$postalCode', '$country', '$role')"); // insert data to database
-        } else {
+            $notifMessage = "✅ Registration successful! Redirecting to Login...";
+            $notifType = "success";
+
+            echo "<script>
+                    setTimeout(() => { window.location.href = 'login.php'; }, 2000);
+                </script>";
+        } 
+        else {
             echo "Please fill in all fields.";
         }
     }
@@ -33,14 +40,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/register.css">
+    <link rel="stylesheet" href="assets/css/notification.css">
     <title>E-Commerce | Register</title>
 </head>
 <body>
+    <div class="notif-container" id="notif-container"></div>
+
     <div id="main-cont">    
         <div id="form-cont">
             <form action="" method="post">
                 <div class="title-cont">
                     <p class="title">REGISTER</p>
+                    <p class="description">Create an account.</p>
                 </div>
                 <div class="input-cont">
                     <p class="label">Full name</p>
@@ -95,6 +106,30 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             </form>
         </div>
     </div>
+
+    <script>
+        function showNotification(message, type = "success") {
+            const container = document.getElementById("notif-container");
+
+            // Create notification
+            const notif = document.createElement("div");
+            notif.classList.add("notif", type);
+            notif.innerHTML = `<strong>${message}</strong>`;
+
+            container.appendChild(notif);
+
+            // Hide after 3 seconds with fade effect
+            setTimeout(() => {
+                notif.classList.add("hide");
+                setTimeout(() => notif.remove(), 1500);
+            }, 800);
+        }
+
+        // Show notification from PHP if set
+        <?php if (!empty($notifMessage)): ?>
+            showNotification("<?php echo $notifMessage; ?>", "<?php echo $notifType; ?>");
+        <?php endif; ?>
+    </script>
 </body>
 </html>
 

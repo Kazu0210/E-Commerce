@@ -44,6 +44,12 @@ html, body {
     font-size: 1.5em;
     font-weight: bold;
 }
+.description {
+    color: #fff;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: normal;
+}
 .input-cont {
     display: flex;
     flex-direction: column;
