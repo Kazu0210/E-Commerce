@@ -29,6 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <title>E-Commerce | Home</title>
 </head>
 <body>
+    <div id="dynamicmenu">
+
+    </div>
     <div id="main-cont">
         <!-- include the navbar -->
         <?php include "includes/navbar.php"; ?>     
@@ -36,9 +39,23 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     <!-- <h1 style='color: white;'>Welcome, <?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : "Guest"; ?>!</h1> -->
     <script>
-        document.getElementById('menubtn').addEventListener('click', function(){
-            console.log('menu button clicked');
-        })
+            document.getElementById('menubtn').addEventListener('click', function() {
+                console.log('menu button clicked');
+                let dynamicMenu = document.getElementById('dynamicmenu');
+                let body = document.body;
+
+                if (dynamicMenu.style.width === "100%") {
+                    // Close menu and enable scrolling
+                    dynamicMenu.style.width = "0";
+                    body.style.overflowY = "auto"; // Allow vertical scroll
+                } else {
+                    // Open menu and disable scrolling
+                    dynamicMenu.style.width = "100%";
+                    body.style.overflowY = "hidden"; // Disable vertical scroll
+                }
+
+                dynamicMenu.style.transition = "width 0.5s ease-in-out";
+            });
     </script>
 </body>
 </html>
