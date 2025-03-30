@@ -25,25 +25,20 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/css/index.css">
+    <link rel="stylesheet" href="assets/css/navbar.css">
     <title>E-Commerce | Home</title>
 </head>
 <body>
-    <!-- include the navbar -->
-    <?php include "includes/navbar.php"; ?> 
-    <div id="categories">
-        <nav>
-            <ul>
-                <li id="homeLink"><a href="#">Home</a></li>
-                <li><a href="#">Smartphones & Accessories</a></li>
-                <li><a href="#">Laptops & Accessories</a></li>
-                <li><a href="#">Audio & Wearables</a></li>
-                <li><a href="#">Gaming Gear</a></li>
-                <li><a href="#">Smart Home Devices</a></li>
-            </ul>
-        </nav>
+    <div id="main-cont">
+        <!-- include the navbar -->
+        <?php include "includes/navbar.php"; ?>     
     </div>
 
     <!-- <h1 style='color: white;'>Welcome, <?php echo isset($_SESSION['username']) ? htmlspecialchars($_SESSION['username']) : "Guest"; ?>!</h1> -->
-
+    <script>
+        document.getElementById('menubtn').addEventListener('click', function(){
+            console.log('menu button clicked');
+        })
+    </script>
 </body>
 </html>

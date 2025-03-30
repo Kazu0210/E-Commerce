@@ -1,4 +1,7 @@
 <nav id="navbar">
+    <button id="menubtn">
+        <img src="assets/images/menu-burger-white.png" alt="menu button icon">
+    </button>
     <!-- <div id="logo">&lt;Tech & Gadgets/&gt;</div> -->
     <div id="logo-cont">
         <img src="assets/images/tech-gadgets-logo.png" alt="" id="logo-img">
@@ -30,3 +33,15 @@
         </form>
     </div>
 </nav>
+<div id="categories">
+    <nav>
+        <ul>
+            <li id="homeLink"><a href="#">Home</a></li>
+            <li><a href="#">Smartphones & Accessories</a></li>
+            <li><a href="#">Laptops & Accessories</a></li>
+            <li><a href="#">Audio & Wearables</a></li>
+            <li><a href="#">Gaming Gear</a></li>
+            <li><a href="#">Smart Home Devices</a></li>
+        </ul>
+    </nav>
+</div>

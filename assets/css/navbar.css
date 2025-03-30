@@ -1,0 +1,57 @@
+#navbar {
+    background-color: #22242C;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    padding: 0px 40px;
+    position: relative;
+    align-items: center;
+}
+
+/* ✅ Responsive Design */
+
+/* ✅ Mobile Large */
+@media (max-width: 425px) {
+    #logo-cont {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: auto;
+        width: 100%;
+    }
+    #logo-cont img {    
+        width: 90%;
+        height: auto;   
+    }
+    #searchBar, #buttons {
+        display: none;
+    }
+    #menubtn {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        left: 15px;   
+        background-color: transparent;
+        border: none;
+    }
+    #menubtn img {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+/* ✅ Tablet */
+@media (min-width: 426px) and (max-width: 768px) {
+    
+}
+
+/* ✅ Latop */
+@media (min-width: 769px) and (max-width: 1024px) {
+    
+}
+
+/* ✅ Tablet */
+@media (min-width: 1024px) and (max-width: 1440px) {
+    
+}   
